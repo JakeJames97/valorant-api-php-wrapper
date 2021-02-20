@@ -1,0 +1,42 @@
+{
+    "name": "jakejames/valorant-api-php-wrapper",
+    "description": "PHP wrapper for the valorant api",
+    "keywords": [
+        "jakejames",
+        "valorant-api-php-wrapper"
+    ],
+    "homepage": "https://github.com/jakejames/valorant-api-php-wrapper",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jake James",
+            "email": "jakejames18@virginmedia.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JakeJames\\ValorantApiPhpWrapper\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JakeJames\\ValorantApiPhpWrapper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
