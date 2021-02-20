@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Test Suite" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="0.001929">
+    <testsuite name="JakeJames\ValorantApiPhpWrapper\Tests\ValorantApiTest" file="/Users/jakejames/Sites/valorant-api-php-wrapper/tests/ValorantApiTest.php" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="0.001929">
+      <testcase name="callingContentReturnsInstanceOfContent" class="JakeJames\ValorantApiPhpWrapper\Tests\ValorantApiTest" classname="JakeJames.ValorantApiPhpWrapper.Tests.ValorantApiTest" file="/Users/jakejames/Sites/valorant-api-php-wrapper/tests/ValorantApiTest.php" line="24" assertions="1" time="0.001595"/>
+      <testcase name="callingRankedReturnsInstanceOfRanked" class="JakeJames\ValorantApiPhpWrapper\Tests\ValorantApiTest" classname="JakeJames.ValorantApiPhpWrapper.Tests.ValorantApiTest" file="/Users/jakejames/Sites/valorant-api-php-wrapper/tests/ValorantApiTest.php" line="30" assertions="1" time="0.000118"/>
+      <testcase name="callingMatchReturnsInstanceOfMatch" class="JakeJames\ValorantApiPhpWrapper\Tests\ValorantApiTest" classname="JakeJames.ValorantApiPhpWrapper.Tests.ValorantApiTest" file="/Users/jakejames/Sites/valorant-api-php-wrapper/tests/ValorantApiTest.php" line="36" assertions="1" time="0.000107"/>
+      <testcase name="callingStatusReturnsInstanceOfStatus" class="JakeJames\ValorantApiPhpWrapper\Tests\ValorantApiTest" classname="JakeJames.ValorantApiPhpWrapper.Tests.ValorantApiTest" file="/Users/jakejames/Sites/valorant-api-php-wrapper/tests/ValorantApiTest.php" line="42" assertions="1" time="0.000109"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
