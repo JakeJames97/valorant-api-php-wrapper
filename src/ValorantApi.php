@@ -9,6 +9,9 @@ use JakeJames\ValorantApiPhpWrapper\type\Status;
 
 class ValorantApi
 {
+    /**
+     * @var string $apiKey
+     */
     protected $apiKey;
 
     public function __construct(string $apiKey)

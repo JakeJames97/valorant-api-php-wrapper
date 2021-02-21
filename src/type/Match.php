@@ -2,12 +2,17 @@
 
 namespace JakeJames\ValorantApiPhpWrapper\type;
 
-class Match
-{
-    protected $apiKey;
+use GuzzleHttp\Client;
 
+class Match extends Base
+{
     public function __construct(string $apiKey)
     {
-        $this->apiKey = $apiKey;
+        Base::__construct(
+            $apiKey,
+            new Client([
+                'base_uri' => 'https://ap.api.riotgames.com/val/match/v1/',
+            ])
+        );
     }
 }

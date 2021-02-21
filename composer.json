@@ -16,7 +16,9 @@
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^7.2",
+        "ext-json": "*"
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.30.1",
