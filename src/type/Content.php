@@ -6,23 +6,21 @@ use GuzzleHttp\Client;
 
 class Content extends Base
 {
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, Client $client)
     {
         Base::__construct(
             $apiKey,
-            new Client([
-                'base_uri' => 'https://ap.api.riotgames.com/val/content/v1/',
-            ])
+            $client
         );
     }
 
     public function getContent(): array
     {
-        $response = $this->get('val/content/v1/contents');
+        $response = $this->get('contents');
 
-        if ($response === null) {
+        if ($response === null || $response->getStatusCode() !== 200) {
             return [
-                'error' => 'no response found',
+                'error' => 'Failed to pull back content from the Valorant API',
                 'status' => 404,
             ];
         }
