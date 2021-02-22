@@ -1,15 +1,15 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\Tests;
+namespace JakeJames\ValorantApiPhpWrapper\Tests\type;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use JakeJames\ValorantApiPhpWrapper\type\Ranked;
+use JakeJames\ValorantApiPhpWrapper\type\Status;
 use PHPUnit\Framework\TestCase;
 
-class RankedTest extends TestCase
+class StatusTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -25,9 +25,9 @@ class RankedTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $ranked = new Ranked('testing', $client);
+        $status = new Status('testing', $client);
 
-        $response = $ranked->getLeaderboardByAct('test');
+        $response = $status->getPlatformData();
 
         $this->assertEquals(200, $response['status']);
     }
@@ -41,9 +41,9 @@ class RankedTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Ranked('testing', $client);
+        $status = new Status('testing', $client);
 
-        $response = $match->getLeaderboardByAct('test');
+        $response = $status->getPlatformData();
 
         $this->assertEquals('Failed to pull back content from the Valorant API', $response['error']);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\Tests;
+namespace JakeJames\ValorantApiPhpWrapper\Tests\type;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
