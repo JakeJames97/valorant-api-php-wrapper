@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.30.1",
+        "phpstan/phpstan": "^0.12.78",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
@@ -36,8 +37,8 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "analyse": "vendor/bin/phpstan analyse --configuration ./phpstan.neon"
     },
     "config": {
         "sort-packages": true
