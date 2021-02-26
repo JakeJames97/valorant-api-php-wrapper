@@ -2,10 +2,11 @@
 
 namespace JakeJames\ValorantApiPhpWrapper\Tests;
 
-use JakeJames\ValorantApiPhpWrapper\type\Content;
-use JakeJames\ValorantApiPhpWrapper\type\Match;
-use JakeJames\ValorantApiPhpWrapper\type\Ranked;
-use JakeJames\ValorantApiPhpWrapper\type\Status;
+use JakeJames\ValorantApiPhpWrapper\API\Content;
+use JakeJames\ValorantApiPhpWrapper\API\Match;
+use JakeJames\ValorantApiPhpWrapper\API\Ranked;
+use JakeJames\ValorantApiPhpWrapper\API\Status;
+use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use JakeJames\ValorantApiPhpWrapper\ValorantApi;
 use PHPUnit\Framework\TestCase;
 
@@ -13,11 +14,11 @@ class ValorantApiTest extends TestCase
 {
     protected $valorantApi;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->valorantApi = new ValorantApi('testing');
+        $this->valorantApi = new ValorantApi('testing', ValorantRegion::EUROPE());
     }
 
     /** @test */

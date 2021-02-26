@@ -1,22 +1,24 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\type;
+namespace JakeJames\ValorantApiPhpWrapper\API;
 
-use GuzzleHttp\Client;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
 
-class Match extends Base
+class Match
 {
-    public function __construct(string $apiKey, Client $client)
+    /**
+     * @var ClientWrapper $client
+     */
+    protected $client;
+
+    public function __construct(ClientWrapper $client)
     {
-        Base::__construct(
-            $apiKey,
-            $client
-        );
+        $this->client = $client;
     }
 
     public function getMatchById(string $id): array
     {
-        $response = $this->get('matches/' . $id);
+        $response = $this->client->get('match/v1/matches/' . $id);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [
@@ -35,7 +37,7 @@ class Match extends Base
 
     public function getMatchByPuuid(string $puuid): array
     {
-        $response = $this->get('matchlists/by-puuid/' . $puuid);
+        $response = $this->client->get('match/v1/matchlists/by-puuid/' . $puuid);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [
@@ -60,7 +62,7 @@ class Match extends Base
                 'status' => 422,
             ];
         }
-        $response = $this->get('recent-matches/by-queue/' . $queue);
+        $response = $this->client->get('match/v1/recent-matches/by-queue/' . $queue);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [

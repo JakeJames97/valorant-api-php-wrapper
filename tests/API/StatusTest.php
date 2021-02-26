@@ -1,15 +1,17 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\Tests\type;
+namespace JakeJames\ValorantApiPhpWrapper\Tests\API;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use JakeJames\ValorantApiPhpWrapper\type\Content;
+use JakeJames\ValorantApiPhpWrapper\API\Status;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 
-class ContentTest extends TestCase
+class StatusTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -17,7 +19,7 @@ class ContentTest extends TestCase
     }
 
     /** @test */
-    public function getContentReturnsResponseAsExpectedWithSuccessRequest(): void
+    public function getLeaderboardByActReturnsResponseAsExpectedWithSuccessRequest(): void
     {
         $mock = new MockHandler([
             new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
@@ -25,15 +27,19 @@ class ContentTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $content = new Content('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
 
-        $response = $content->getContent();
+        $clientWrapper->setClient($client);
+
+        $status = new Status($clientWrapper);
+
+        $response = $status->getPlatformData();
 
         $this->assertEquals(200, $response['status']);
     }
 
     /** @test */
-    public function getContentReturnsResponseAsExpectedWithFailedRequest(): void
+    public function getMatchByIdReturnsResponseAsExpectedWithFailedRequest(): void
     {
         $mock = new MockHandler([
             new Response(202, ['X-Riot-Token' => 'testing'], 'test body'),
@@ -41,9 +47,13 @@ class ContentTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $content = new Content('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
 
-        $response = $content->getContent();
+        $clientWrapper->setClient($client);
+
+        $status = new Status($clientWrapper);
+
+        $response = $status->getPlatformData();
 
         $this->assertEquals('Failed to pull back content from the Valorant API', $response['error']);
 

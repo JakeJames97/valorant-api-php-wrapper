@@ -1,12 +1,14 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\Tests\type;
+namespace JakeJames\ValorantApiPhpWrapper\Tests\API;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use JakeJames\ValorantApiPhpWrapper\type\Match;
+use JakeJames\ValorantApiPhpWrapper\API\Match;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 
 class MatchTest extends TestCase
@@ -25,7 +27,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getMatchById('test');
 
@@ -41,7 +47,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getMatchById('test');
 
@@ -59,7 +69,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getMatchByPuuid('test');
 
@@ -75,7 +89,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getMatchByPuuid('test');
 
@@ -92,7 +110,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getRecentMatches('competitive');
 
@@ -108,7 +130,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getRecentMatches('incorrect queue');
 
@@ -125,7 +151,11 @@ class MatchTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Match('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Match($clientWrapper);
 
         $response = $match->getRecentMatches('competitive');
 

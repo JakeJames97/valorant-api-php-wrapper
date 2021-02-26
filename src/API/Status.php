@@ -1,22 +1,24 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\type;
+namespace JakeJames\ValorantApiPhpWrapper\API;
 
-use GuzzleHttp\Client;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
 
-class Content extends Base
+class Status
 {
-    public function __construct(string $apiKey, Client $client)
+    /**
+     * @var ClientWrapper $client
+     */
+    protected $client;
+
+    public function __construct(ClientWrapper $client)
     {
-        Base::__construct(
-            $apiKey,
-            $client
-        );
+        $this->client = $client;
     }
 
-    public function getContent(): array
+    public function getPlatformData(): array
     {
-        $response = $this->get('contents');
+        $response = $this->client->get('status/v1/platform-data');
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [

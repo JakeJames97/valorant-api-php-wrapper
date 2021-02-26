@@ -1,22 +1,24 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\type;
+namespace JakeJames\ValorantApiPhpWrapper\API;
 
-use GuzzleHttp\Client;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
 
-class Ranked extends Base
+class Ranked
 {
-    public function __construct(string $apiKey, Client $client)
+    /**
+     * @var ClientWrapper $client
+     */
+    protected $client;
+
+    public function __construct(ClientWrapper $client)
     {
-        Base::__construct(
-            $apiKey,
-            $client
-        );
+        $this->client = $client;
     }
 
     public function getLeaderboardByAct(string $actId): array
     {
-        $response = $this->get('leaderboards/by-act/' . $actId);
+        $response = $this->client->get('ranked/v1/leaderboards/by-act/' . $actId);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [

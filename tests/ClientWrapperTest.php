@@ -1,6 +1,6 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\Tests\type;
+namespace JakeJames\ValorantApiPhpWrapper\Tests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -8,11 +8,12 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use JakeJames\ValorantApiPhpWrapper\type\Base;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class BaseTest extends TestCase
+class ClientWrapperTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -28,9 +29,11 @@ class BaseTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $base = new Base('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
 
-        $response = $base->get('val/content/v1/contents');
+        $clientWrapper->setClient($client);
+
+        $response = $clientWrapper->get('val/content/v1/contents');
 
         $this->assertEquals(200, $response->getStatusCode());
 
@@ -53,8 +56,10 @@ class BaseTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $base = new Base('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
 
-        $base->get('val/content/v1/contents');
+        $clientWrapper->setClient($client);
+
+        $clientWrapper->get('val/content/v1/contents');
     }
 }

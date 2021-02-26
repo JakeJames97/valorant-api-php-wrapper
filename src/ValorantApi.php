@@ -3,48 +3,42 @@
 namespace JakeJames\ValorantApiPhpWrapper;
 
 use GuzzleHttp\Client;
-use JakeJames\ValorantApiPhpWrapper\type\Content;
-use JakeJames\ValorantApiPhpWrapper\type\Match;
-use JakeJames\ValorantApiPhpWrapper\type\Ranked;
-use JakeJames\ValorantApiPhpWrapper\type\Status;
+use JakeJames\ValorantApiPhpWrapper\API\Content;
+use JakeJames\ValorantApiPhpWrapper\API\Match;
+use JakeJames\ValorantApiPhpWrapper\API\Ranked;
+use JakeJames\ValorantApiPhpWrapper\API\Status;
+use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 
 class ValorantApi
 {
-    /**
-     * @var string $apiKey
-     */
-    protected $apiKey;
-
     /**
      * @var Client $client
      */
     protected $client;
 
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, ValorantRegion $valorantRegion)
     {
-        $this->apiKey = $apiKey;
-        $this->client = new Client([
-            'base_uri' => 'https://ap.api.riotgames.com/val/ranked/v1/',
-        ]);
+        $region = $valorantRegion->getValue();
+        $this->client = new ClientWrapper($apiKey, $region);
     }
 
     public function content(): Content
     {
-        return new Content($this->apiKey, $this->client);
+        return new Content($this->client);
     }
 
     public function ranked(): Ranked
     {
-        return new Ranked($this->apiKey, $this->client);
+        return new Ranked($this->client);
     }
 
     public function match(): Match
     {
-        return new Match($this->apiKey, $this->client);
+        return new Match($this->client);
     }
 
     public function status(): Status
     {
-        return new Status($this->apiKey, $this->client);
+        return new Status($this->client);
     }
 }

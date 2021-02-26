@@ -1,12 +1,14 @@
 <?php
 
-namespace JakeJames\ValorantApiPhpWrapper\Tests\type;
+namespace JakeJames\ValorantApiPhpWrapper\Tests\API;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use JakeJames\ValorantApiPhpWrapper\type\Ranked;
+use JakeJames\ValorantApiPhpWrapper\API\Ranked;
+use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 
 class RankedTest extends TestCase
@@ -25,7 +27,11 @@ class RankedTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $ranked = new Ranked('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $ranked = new Ranked($clientWrapper);
 
         $response = $ranked->getLeaderboardByAct('test');
 
@@ -41,7 +47,11 @@ class RankedTest extends TestCase
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $match = new Ranked('testing', $client);
+        $clientWrapper = new ClientWrapper('testing', ValorantRegion::EUROPE());
+
+        $clientWrapper->setClient($client);
+
+        $match = new Ranked($clientWrapper);
 
         $response = $match->getLeaderboardByAct('test');
 
