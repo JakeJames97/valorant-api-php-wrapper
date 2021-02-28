@@ -18,7 +18,7 @@ class Status
 
     public function getPlatformData(): array
     {
-        $response = $this->client->get('status/v1/platform-data');
+        $response = $this->client->get('val/status/v1/platform-data');
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [

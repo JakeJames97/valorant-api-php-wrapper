@@ -18,7 +18,7 @@ class Content
 
     public function getContent(): array
     {
-        $response = $this->client->get('content/v1/contents');
+        $response = $this->client->get('val/content/v1/contents');
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [

@@ -19,11 +19,11 @@ class ClientWrapper
      */
     protected $client;
 
-    public function __construct(string $apiKey, string $valorantRegion)
+    public function __construct(string $apiKey, string $region)
     {
         $this->apiKey = $apiKey;
         $this->client = new Client([
-            'base_uri' => 'https://' . $valorantRegion . '.api.riotgames.com/val/',
+            'base_uri' => 'https://' . $region . '.api.riotgames.com/',
         ]);
     }
 

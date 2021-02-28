@@ -18,7 +18,7 @@ class Ranked
 
     public function getLeaderboardByAct(string $actId): array
     {
-        $response = $this->client->get('ranked/v1/leaderboards/by-act/' . $actId);
+        $response = $this->client->get('val/ranked/v1/leaderboards/by-act/' . $actId);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [

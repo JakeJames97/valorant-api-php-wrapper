@@ -3,6 +3,7 @@
 namespace JakeJames\ValorantApiPhpWrapper;
 
 use GuzzleHttp\Client;
+use JakeJames\ValorantApiPhpWrapper\API\Account;
 use JakeJames\ValorantApiPhpWrapper\API\Content;
 use JakeJames\ValorantApiPhpWrapper\API\Match;
 use JakeJames\ValorantApiPhpWrapper\API\Ranked;
@@ -40,5 +41,10 @@ class ValorantApi
     public function status(): Status
     {
         return new Status($this->client);
+    }
+
+    public function account(): Account
+    {
+        return new Account($this->client);
     }
 }

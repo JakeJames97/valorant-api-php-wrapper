@@ -2,6 +2,7 @@
 
 namespace JakeJames\ValorantApiPhpWrapper\Tests;
 
+use JakeJames\ValorantApiPhpWrapper\API\Account;
 use JakeJames\ValorantApiPhpWrapper\API\Content;
 use JakeJames\ValorantApiPhpWrapper\API\Match;
 use JakeJames\ValorantApiPhpWrapper\API\Ranked;
@@ -43,5 +44,11 @@ class ValorantApiTest extends TestCase
     public function callingStatusReturnsInstanceOfStatus(): void
     {
         $this->assertInstanceOf(Status::class, $this->valorantApi->status());
+    }
+
+    /** @test */
+    public function callingAccountReturnsInstanceOfAccount(): void
+    {
+        $this->assertInstanceOf(Account::class, $this->valorantApi->account());
     }
 }

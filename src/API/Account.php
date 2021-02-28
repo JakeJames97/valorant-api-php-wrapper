@@ -4,7 +4,7 @@ namespace JakeJames\ValorantApiPhpWrapper\API;
 
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
 
-class Match
+class Account
 {
     /**
      * @var ClientWrapper $client
@@ -16,13 +16,13 @@ class Match
         $this->client = $client;
     }
 
-    public function getMatchById(string $id): array
+    public function getAccountByPuuid(string $puuid): array
     {
-        $response = $this->client->get('val/match/v1/matches/' . $id);
+        $response = $this->client->get('riot/account/v1/accounts/by-puuid/' . $puuid);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [
-                'error' => 'Failed to pull back content from the Valorant API',
+                'error' => 'Failed to pull back content from the Riot API',
                 'status' => 404,
             ];
         }
@@ -35,38 +35,20 @@ class Match
         ];
     }
 
-    public function getMatchByPuuid(string $puuid): array
+    public function getAccountByRiotId(string $riotId): array
     {
-        $response = $this->client->get('match/v1/matchlists/by-puuid/' . $puuid);
-
-        if ($response === null || $response->getStatusCode() !== 200) {
+        if (strpos($riotId, '#') === false) {
             return [
-                'error' => 'Failed to pull back content from the Valorant API',
-                'status' => 404,
-            ];
-        }
-
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
-    }
-
-    public function getRecentMatches(string $queue): array
-    {
-        if (!$this->isValidQueueType($queue)) {
-            return [
-                'error' => 'Invalid Queue type',
+                'error' => 'Invalid Riot ID, e.g - example#1234',
                 'status' => 422,
             ];
         }
-        $response = $this->client->get('match/v1/recent-matches/by-queue/' . $queue);
+        $id = explode('#', $riotId);
+        $response = $this->client->get('/riot/account/v1/accounts/by-riot-id/' . $id[0] . '/' . $id[1]);
 
         if ($response === null || $response->getStatusCode() !== 200) {
             return [
-                'error' => 'Failed to pull back content from the Valorant API',
+                'error' => 'Failed to pull back content from the Riot API',
                 'status' => 404,
             ];
         }
@@ -79,18 +61,22 @@ class Match
         ];
     }
 
-    private function isValidQueueType(string $queue): bool
+    public function getShard(string $puuid): array
     {
-        if ($queue === 'unrated') {
-            return true;
-        }
-        if ($queue === 'competitive') {
-            return true;
-        }
-        if ($queue === 'spikerush') {
-            return true;
+        $response = $this->client->get('/riot/account/v1/active-shards/by-game/val/by-puuid/' . $puuid);
+
+        if ($response === null || $response->getStatusCode() !== 200) {
+            return [
+                'error' => 'Failed to pull back content from the Riot API',
+                'status' => 404,
+            ];
         }
 
-        return false;
+        return [
+            'data' => [
+                json_decode($response->getBody(), true),
+            ],
+            'status' => $response->getStatusCode(),
+        ];
     }
 }
