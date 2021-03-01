@@ -35,20 +35,12 @@ class ClientWrapperTest extends TestCase
 
         $response = $clientWrapper->get('val/content/v1/contents');
 
-        $this->assertEquals(200, $response->getStatusCode());
-
-        $body = $response->getBody()->getContents();
-
-        $this->assertEquals('test body', $body);
+        $this->assertEquals(200, $response['status']);
     }
 
     /** @test */
     public function baseGetRequestReturnsExceptionIfRequestFails(): void
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Error occurred when calling the valorant api');
-        $this->expectExceptionCode(500);
-
         $mock = new MockHandler([
             new RequestException('Error Occurred', new Request('GET', 'test'))
         ]);
@@ -60,6 +52,8 @@ class ClientWrapperTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $clientWrapper->get('val/content/v1/contents');
+        $response = $clientWrapper->get('val/content/v1/contents');
+
+        $this->assertEquals('An unexpected error occurred, please try again', $response['error']);
     }
 }

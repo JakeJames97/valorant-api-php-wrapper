@@ -4,8 +4,6 @@ namespace JakeJames\ValorantApiPhpWrapper;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
 
 class ClientWrapper
 {
@@ -27,7 +25,7 @@ class ClientWrapper
         ]);
     }
 
-    public function get(string $endpoint, array $params = []): ?ResponseInterface
+    public function get(string $endpoint, array $params = []): ?array
     {
         $options = [
             'query' => [
@@ -39,14 +37,54 @@ class ClientWrapper
         ];
 
         try {
-            return $this->client->get($endpoint, $options);
+            $response = $this->client->get($endpoint, $options);
+
+            return [
+                'data' => json_decode($response->getBody(), true, 512),
+                'status' => $response->getStatusCode(),
+            ];
         } catch (GuzzleException $exception) {
-            throw new RuntimeException('Error occurred when calling the valorant api', 500);
+            return $this->handleErrors($exception->getCode());
         }
     }
 
     public function setClient(Client $client): void
     {
         $this->client = $client;
+    }
+
+
+    /**
+     * Handles the response and throws errors accordingly.
+     * @param string $code
+     * @return array
+     */
+    protected function handleErrors(string $code): array
+    {
+        switch ($code) {
+            case 401:
+                return [
+                    'error' => 'Unauthorized (Invalid API key or insufficient permissions)',
+                    'status' => $code,
+                ];
+            case 404:
+                return [
+                    'error' => 'Failed to pull back content from the Riot API',
+                    'status' => $code,
+                ];
+            case 500:
+            case 502:
+            case 503:
+            case 504:
+                return [
+                    'error' => 'Something went wrong on Riot\'s end.',
+                    'status' => $code,
+                ];
+            default:
+                return [
+                    'error' => 'An unexpected error occurred, please try again',
+                    'status' => $code,
+                ];
+        }
     }
 }

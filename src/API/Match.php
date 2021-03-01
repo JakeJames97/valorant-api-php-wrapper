@@ -18,40 +18,12 @@ class Match
 
     public function getMatchById(string $id): array
     {
-        $response = $this->client->get('val/match/v1/matches/' . $id);
-
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Valorant API',
-                'status' => 404,
-            ];
-        }
-
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        return $this->client->get('val/match/v1/matches/' . $id);
     }
 
     public function getMatchByPuuid(string $puuid): array
     {
-        $response = $this->client->get('match/v1/matchlists/by-puuid/' . $puuid);
-
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Valorant API',
-                'status' => 404,
-            ];
-        }
-
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        return $this->client->get('match/v1/matchlists/by-puuid/' . $puuid);
     }
 
     public function getRecentMatches(string $queue): array
@@ -62,21 +34,8 @@ class Match
                 'status' => 422,
             ];
         }
-        $response = $this->client->get('match/v1/recent-matches/by-queue/' . $queue);
 
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Valorant API',
-                'status' => 404,
-            ];
-        }
-
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        return $this->client->get('match/v1/recent-matches/by-queue/' . $queue);
     }
 
     private function isValidQueueType(string $queue): bool

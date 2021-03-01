@@ -18,20 +18,6 @@ class Content
 
     public function getContent(): array
     {
-        $response = $this->client->get('val/content/v1/contents');
-
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Valorant API',
-                'status' => 404,
-            ];
-        }
-
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        return $this->client->get('val/content/v1/contents');
     }
 }

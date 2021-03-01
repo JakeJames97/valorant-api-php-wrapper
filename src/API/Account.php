@@ -3,6 +3,7 @@
 namespace JakeJames\ValorantApiPhpWrapper\API;
 
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\AccountDTO;
 
 class Account
 {
@@ -18,24 +19,23 @@ class Account
 
     public function getAccountByPuuid(string $puuid): array
     {
-        $response = $this->client->get('riot/account/v1/accounts/by-puuid/' . $puuid);
+        $data = $this->client->get('riot/account/v1/accounts/by-puuid/' . $puuid);
 
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Riot API',
-                'status' => 404,
-            ];
+        if ($data['status'] !== 200) {
+            return $data;
         }
 
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        $data['data'] = new AccountDTO($data['data']);
+
+        return $data;
     }
 
-    public function getAccountByRiotId(string $riotId): array
+    /**
+     * @param string $riotId
+     *
+     * @return array|AccountDTO
+     */
+    public function getAccountByRiotId(string $riotId)
     {
         if (strpos($riotId, '#') === false) {
             return [
@@ -44,39 +44,20 @@ class Account
             ];
         }
         $id = explode('#', $riotId);
-        $response = $this->client->get('/riot/account/v1/accounts/by-riot-id/' . $id[0] . '/' . $id[1]);
 
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Riot API',
-                'status' => 404,
-            ];
+        $data = $this->client->get('/riot/account/v1/accounts/by-riot-id/' . $id[0] . '/' . $id[1]);
+
+        if ($data['status'] !== 200) {
+            return $data;
         }
 
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        $data['data'] = new AccountDTO($data['data']);
+
+        return $data;
     }
 
     public function getShard(string $puuid): array
     {
-        $response = $this->client->get('/riot/account/v1/active-shards/by-game/val/by-puuid/' . $puuid);
-
-        if ($response === null || $response->getStatusCode() !== 200) {
-            return [
-                'error' => 'Failed to pull back content from the Riot API',
-                'status' => 404,
-            ];
-        }
-
-        return [
-            'data' => [
-                json_decode($response->getBody(), true),
-            ],
-            'status' => $response->getStatusCode(),
-        ];
+        return $this->client->get('/riot/account/v1/active-shards/by-game/val/by-puuid/' . $puuid);
     }
 }

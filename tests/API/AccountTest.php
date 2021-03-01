@@ -21,8 +21,14 @@ class AccountTest extends TestCase
     /** @test */
     public function getAccountByPuuidReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = json_encode([
+            'puuid' => 'RGAPI-2fc5278a-c33b-4c2b-bfce-0ba383e7c57a',
+            'gameName' => 'test',
+            'tagLine' => '6882',
+        ]);
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -42,7 +48,7 @@ class AccountTest extends TestCase
     public function getAccountByPuuidReturnsResponseAsExpectedWithFailedRequest(): void
     {
         $mock = new MockHandler([
-            new Response(202, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(404, ['X-Riot-Token' => 'testing'], 'test body'),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -63,8 +69,14 @@ class AccountTest extends TestCase
     /** @test */
     public function getAccountByRiotIdReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = json_encode([
+            'puuid' => 'RGAPI-2fc5278a-c33b-4c2b-bfce-0ba383e7c57a',
+            'gameName' => 'test',
+            'tagLine' => '6882',
+        ]);
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -75,7 +87,7 @@ class AccountTest extends TestCase
 
         $account = new Account($clientWrapper);
 
-        $response = $account->getAccountByRiotId('test#4874');
+        $response = $account->getAccountByRiotId('test#6882');
 
         $this->assertEquals(200, $response['status']);
     }
@@ -106,7 +118,7 @@ class AccountTest extends TestCase
     public function getAccountByRiotIdReturnsResponseAsExpectedWithFailedRequest(): void
     {
         $mock = new MockHandler([
-            new Response(202, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(404, ['X-Riot-Token' => 'testing'], 'test body'),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -117,7 +129,7 @@ class AccountTest extends TestCase
 
         $account = new Account($clientWrapper);
 
-        $response = $account->getAccountByRiotId('test#4874');
+        $response = $account->getAccountByRiotId('test#6882');
 
         $this->assertEquals('Failed to pull back content from the Riot API', $response['error']);
 
@@ -148,7 +160,7 @@ class AccountTest extends TestCase
     public function getShardByPuuidReturnsResponseAsExpectedWithFailedRequest(): void
     {
         $mock = new MockHandler([
-            new Response(202, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(404, ['X-Riot-Token' => 'testing'], 'test body'),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);

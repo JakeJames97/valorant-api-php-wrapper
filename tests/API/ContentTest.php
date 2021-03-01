@@ -42,7 +42,7 @@ class ContentTest extends TestCase
     public function getContentReturnsResponseAsExpectedWithFailedRequest(): void
     {
         $mock = new MockHandler([
-            new Response(202, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(404, ['X-Riot-Token' => 'testing'], 'test body'),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -55,7 +55,7 @@ class ContentTest extends TestCase
 
         $response = $content->getContent();
 
-        $this->assertEquals('Failed to pull back content from the Valorant API', $response['error']);
+        $this->assertEquals('Failed to pull back content from the Riot API', $response['error']);
 
         $this->assertEquals(404, $response['status']);
     }
