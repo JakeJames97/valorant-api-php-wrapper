@@ -139,8 +139,14 @@ class AccountTest extends TestCase
     /** @test */
     public function getShardByPuuidReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = json_encode([
+            'puuid' => 'RGAPI-2fc5278a-c33b-4c2b-bfce-0ba383e7c57a',
+            'game' => 'val',
+            'activeShard' => 'eu',
+        ]);
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);

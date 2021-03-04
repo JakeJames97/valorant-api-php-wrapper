@@ -4,6 +4,7 @@ namespace JakeJames\ValorantApiPhpWrapper\API;
 
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
 use JakeJames\ValorantApiPhpWrapper\DTO\AccountDTO;
+use JakeJames\ValorantApiPhpWrapper\DTO\ActiveShardDTO;
 
 class Account
 {
@@ -58,6 +59,14 @@ class Account
 
     public function getShard(string $puuid): array
     {
-        return $this->client->get('/riot/account/v1/active-shards/by-game/val/by-puuid/' . $puuid);
+        $data = $this->client->get('/riot/account/v1/active-shards/by-game/val/by-puuid/' . $puuid);
+
+        if ($data['status'] !== 200) {
+            return $data;
+        }
+
+        $data['data'] = new ActiveShardDTO($data['data']);
+
+        return $data;
     }
 }
