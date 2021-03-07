@@ -19,11 +19,23 @@ class StatusTest extends TestCase
     }
 
     /** @test */
-    public function getLeaderboardByActReturnsResponseAsExpectedWithSuccessRequest(): void
+    public function getPlatformDataReturnsResponseAsExpectedWithSuccessRequest(): void
     {
-        $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+        $body = json_encode([
+            'id' => 'test',
+            'name' => 'testing',
+            'locales' => [
+                'de_DE',
+                'fr_FR',
+            ],
+            'maintenances' => [],
+            'incidents' => [],
         ]);
+
+        $mock = new MockHandler([
+            new Response(200, ['X-Riot-Token' => 'testing'], $body)
+        ]);
+
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
@@ -39,10 +51,20 @@ class StatusTest extends TestCase
     }
 
     /** @test */
-    public function getMatchByIdReturnsResponseAsExpectedWithFailedRequest(): void
+    public function getPlatformDataReturnsResponseAsExpectedWithFailedRequest(): void
     {
+        $body = json_encode([
+            'id' => 'test',
+            'name' => 'testing',
+            'locales' => [
+                'de_DE',
+                'fr_FR',
+            ],
+            'maintenances' => [],
+            'incidents' => [],
+        ]);
         $mock = new MockHandler([
-            new Response(404, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(404, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);

@@ -3,6 +3,7 @@
 namespace JakeJames\ValorantApiPhpWrapper\API;
 
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\StatusDTO;
 
 class Status
 {
@@ -18,6 +19,14 @@ class Status
 
     public function getPlatformData(): array
     {
-        return $this->client->get('val/status/v1/platform-data');
+        $data = $this->client->get('val/status/v1/platform-data');
+
+        if ($data['status'] !== 200) {
+            return $data;
+        }
+
+        $data['data'] = new StatusDTO($data['data']);
+
+        return $data;
     }
 }
