@@ -39,8 +39,14 @@ class ClientWrapper
         try {
             $response = $this->client->get($endpoint, $options);
 
+            $data = json_decode($response->getBody(), true, 512);
+
+            if (is_array($data)) {
+                $data = $this->convertKeysToCamelCase($data);
+            }
+
             return [
-                'data' => json_decode($response->getBody(), true, 512),
+                'data' => $data,
                 'status' => $response->getStatusCode(),
             ];
         } catch (GuzzleException $exception) {
@@ -86,5 +92,22 @@ class ClientWrapper
                     'status' => $code,
                 ];
         }
+    }
+
+    private function convertKeysToCamelCase($apiResponseArray): array
+    {
+        $arr = [];
+        foreach ($apiResponseArray as $key => $value) {
+            if (false !== strpos($key, '-')) {
+                $key = str_replace('-', '', lcfirst(ucwords($key, '-')));
+            }
+
+            if (is_array($value)) {
+                $value = $this->convertKeysToCamelCase($value);
+            }
+
+            $arr[$key] = $value;
+        }
+        return $arr;
     }
 }

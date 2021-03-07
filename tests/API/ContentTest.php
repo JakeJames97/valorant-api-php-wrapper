@@ -21,8 +21,10 @@ class ContentTest extends TestCase
     /** @test */
     public function getContentReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = file_get_contents('Tests/Json/ContentResponse.json');
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -41,8 +43,10 @@ class ContentTest extends TestCase
     /** @test */
     public function getContentReturnsResponseAsExpectedWithFailedRequest(): void
     {
+        $body = file_get_contents('Tests/Json/ContentResponse.json');
+
         $mock = new MockHandler([
-            new Response(404, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(404, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
