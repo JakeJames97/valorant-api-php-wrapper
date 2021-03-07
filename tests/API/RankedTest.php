@@ -21,8 +21,24 @@ class RankedTest extends TestCase
     /** @test */
     public function getLeaderboardByActReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = json_encode([
+            'shard' => 'testShard',
+            'actId' => '1234',
+            'totalPlayers' => '20',
+            'players' => [
+                [
+                    'puuid' => '1234',
+                    'gameName' => 'test',
+                    'tagLine' => '123',
+                    'leaderboardRank' => '12',
+                    'rankedRating' => '1999',
+                    'numberOfWins' => '12',
+
+                ],
+            ],
+        ]);
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
