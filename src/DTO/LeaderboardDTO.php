@@ -21,6 +21,6 @@ class LeaderboardDTO extends DataTransferObject
      */
     public $totalPlayers;
 
-    /** @var \JakeJames\ValorantApiPhpWrapper\DTO\PlayerDTO[] */
+    /** @var \JakeJames\ValorantApiPhpWrapper\DTO\LeaderboardPlayerDTO[] */
     public $players;
 }

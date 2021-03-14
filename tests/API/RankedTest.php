@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JakeJames\ValorantApiPhpWrapper\API\Ranked;
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\LeaderboardDTO;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 
@@ -52,6 +53,7 @@ class RankedTest extends TestCase
         $response = $ranked->getLeaderboardByAct('test');
 
         $this->assertEquals(200, $response['status']);
+        $this->assertEquals(new LeaderboardDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */

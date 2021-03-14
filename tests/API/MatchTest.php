@@ -8,6 +8,9 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JakeJames\ValorantApiPhpWrapper\API\Match;
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\MatchDTO;
+use JakeJames\ValorantApiPhpWrapper\DTO\MatchlistDTO;
+use JakeJames\ValorantApiPhpWrapper\DTO\RecentMatchesDTO;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 
@@ -21,8 +24,10 @@ class MatchTest extends TestCase
     /** @test */
     public function getMatchByIdReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = file_get_contents('Tests/Json/MatchResponse.json');
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -36,6 +41,8 @@ class MatchTest extends TestCase
         $response = $match->getMatchById('test');
 
         $this->assertEquals(200, $response['status']);
+
+        $this->assertEquals(new MatchDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */
@@ -63,8 +70,19 @@ class MatchTest extends TestCase
     /** @test */
     public function getMatchByPuuidReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = json_encode([
+            'puuid' => '039y84hf998fg93g',
+            'history' => [
+                [
+                    'matchId' => '474387rfiu',
+                    'gameStartTimeMillis' => '48374837847834',
+                    'teamId' => '43849389348',
+                ]
+            ],
+        ]);
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -78,6 +96,7 @@ class MatchTest extends TestCase
         $response = $match->getMatchByPuuid('test');
 
         $this->assertEquals(200, $response['status']);
+        $this->assertEquals(new MatchlistDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */
@@ -101,11 +120,17 @@ class MatchTest extends TestCase
 
         $this->assertEquals(404, $response['status']);
     }
+
     /** @test */
     public function getRecentMatchesReturnsResponseAsExpectedWithSuccessRequest(): void
     {
+        $body = json_encode([
+            'currentTime' => '39843898743',
+            'matchIds' => ['123,244,545,454'],
+        ]);
+
         $mock = new MockHandler([
-            new Response(200, ['X-Riot-Token' => 'testing'], 'test body'),
+            new Response(200, ['X-Riot-Token' => 'testing'], $body),
         ]);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
@@ -119,6 +144,8 @@ class MatchTest extends TestCase
         $response = $match->getRecentMatches('competitive');
 
         $this->assertEquals(200, $response['status']);
+
+        $this->assertEquals(new RecentMatchesDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */

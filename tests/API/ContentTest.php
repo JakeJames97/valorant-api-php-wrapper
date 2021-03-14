@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JakeJames\ValorantApiPhpWrapper\API\Content;
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\ContentDTO;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 

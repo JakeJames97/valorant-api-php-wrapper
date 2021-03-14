@@ -1,0 +1,151 @@
+{
+  "matchInfo": {
+    "matchId": "17837rh",
+    "mapId": "434hu34",
+    "gameLengthMillis": 43443,
+    "gameStartMillis": "47fh87g78ege8g8f",
+    "provisioningFlowId": "734tgiueuib",
+    "isCompleted": true,
+    "customGameName": "testing",
+    "queueId": "u34hgr87g",
+    "gameMode": "test",
+    "isRanked": true,
+    "seasonId": "teibus938784"
+  },
+  "players": [
+    {
+      "puuid": "387h487fgh87fg87f",
+      "gameName": "test",
+      "tagLine": "testing",
+      "teamId": "38hd8hedd",
+      "partyId": "4h9hf98h4f",
+      "characterId": "teinu3fb8474",
+      "stats": {
+        "score": 4783874,
+        "roundsPlayed": 16,
+        "kills": 40,
+        "deaths": 5,
+        "assists": 12,
+        "playtimeMillis": 4877,
+        "abilityCasts": {
+          "grenadeCasts": 123,
+          "ability1Casts": 123,
+          "ability2Casts": 123,
+          "ultimateCasts": 123
+        }
+      },
+      "competitiveTier": 2,
+      "playerCard": "testing",
+      "playerTitle": "test"
+    }
+  ],
+  "teams": [
+    {
+      "teamId": "498hueihw",
+      "won": true,
+      "roundsPlayed": 24,
+      "roundsWon": 13,
+      "numPoints": 1234
+    }
+  ],
+  "roundResults": [
+    {
+      "roundNum": 12,
+      "roundResult": "won",
+      "roundCeremony": "test",
+      "winningTeam": "test",
+      "bombPlanter": "489hf98hfhi",
+      "bombDefuser": "3ru9h9839d",
+      "plantRoundTime": 123,
+      "plantPlayerLocations": [
+        {
+          "puuid": "93hr89h89hf4",
+          "viewRadians": 3.12,
+          "location": {
+            "x": 123,
+            "y": 123
+          }
+        }
+      ],
+      "plantLocation": {
+        "x": 123,
+        "y": 123
+      },
+      "plantSite": "test",
+      "defuseRoundTime": 123,
+      "defusePlayerLocations": [
+        {
+          "puuid": "93hr89h89hf4",
+          "viewRadians": 3.12,
+          "location": {
+            "x": 123,
+            "y": 123
+          }
+        }
+      ],
+      "defuseLocation": {
+        "x": 123,
+        "y": 123
+      },
+      "playerStats": [
+        {
+          "puuid": "93hr89h89hf4",
+          "kills": [
+            {
+              "timeSinceGameStartMillis": 123,
+              "timeSinceRoundStartMillis": 123,
+              "killer": "12h9fh98f",
+              "victim": "2n4iubniubf",
+              "victimLocation": {
+                "x": 123,
+                "y": 123
+              },
+              "assistants": [
+                "39h, n4ionf, 4ouibnf"
+              ],
+              "playerLocations": [
+                {
+                  "puuid": "93hr89h89hf4",
+                  "viewRadians": 3.12,
+                  "location": {
+                    "x": 123,
+                    "y": 123
+                  }
+                }
+              ],
+              "finishingDamage": {
+                "damageType": "test",
+                "damageItem": "test",
+                "isSecondaryFireMode": false
+              }
+            }
+          ],
+          "damage": [
+            {
+              "receiver": "r3nufb",
+              "damage": 4343434,
+              "legshots": 123,
+              "bodyshots": 123,
+              "headshots": 123
+            }
+          ],
+          "score": 4877344,
+          "economy": {
+            "loadoutValue": 378374784,
+            "weapon": "test",
+            "armor": "test",
+            "remaining": 12,
+            "spent": 1200
+          },
+          "ability": {
+            "grenadeEffects": "test",
+            "ability1Effects": "test",
+            "ability2Effects": "test",
+            "ultimateEffects": "test"
+          }
+        }
+      ],
+      "roundResultCode": "testing"
+    }
+  ]
+}

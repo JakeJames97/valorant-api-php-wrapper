@@ -8,6 +8,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JakeJames\ValorantApiPhpWrapper\API\Account;
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\AccountDTO;
+use JakeJames\ValorantApiPhpWrapper\DTO\ActiveShardDTO;
 use JakeJames\ValorantApiPhpWrapper\Enum\RiotRegion;
 use PHPUnit\Framework\TestCase;
 
@@ -42,6 +44,7 @@ class AccountTest extends TestCase
         $response = $account->getAccountByPuuid('test');
 
         $this->assertEquals(200, $response['status']);
+        $this->assertEquals(new AccountDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */
@@ -90,6 +93,7 @@ class AccountTest extends TestCase
         $response = $account->getAccountByRiotId('test#6882');
 
         $this->assertEquals(200, $response['status']);
+        $this->assertEquals(new AccountDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */
@@ -160,6 +164,8 @@ class AccountTest extends TestCase
         $response = $account->getShard('test');
 
         $this->assertEquals(200, $response['status']);
+
+        $this->assertEquals(new ActiveShardDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */

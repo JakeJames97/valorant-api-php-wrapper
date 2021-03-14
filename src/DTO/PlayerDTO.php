@@ -22,17 +22,35 @@ class PlayerDTO extends DataTransferObject
     public $tagLine;
 
     /**
-     * @var string $leaderboardRank
+     * @var string $teamId
      */
-    public $leaderboardRank;
+    public $teamId;
 
     /**
-     * @var string $rankedRating
+     * @var string $partyId
      */
-    public $rankedRating;
+    public $partyId;
 
     /**
-     * @var string $numberOfWins
+     * @var string $characterId
      */
-    public $numberOfWins;
+    public $characterId;
+
+    /** @var \JakeJames\ValorantApiPhpWrapper\DTO\PlayerStatsDTO */
+    public $stats;
+
+    /**
+     * @var int $competitiveTier
+     */
+    public $competitiveTier;
+
+    /**
+     * @var string $playerCard
+     */
+    public $playerCard;
+
+    /**
+     * @var string $playerTitle
+     */
+    public $playerTitle;
 }

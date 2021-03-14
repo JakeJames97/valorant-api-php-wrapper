@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JakeJames\ValorantApiPhpWrapper\API\Status;
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
+use JakeJames\ValorantApiPhpWrapper\DTO\StatusDTO;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 use PHPUnit\Framework\TestCase;
 
@@ -48,6 +49,7 @@ class StatusTest extends TestCase
         $response = $status->getPlatformData();
 
         $this->assertEquals(200, $response['status']);
+        $this->assertEquals(new StatusDTO(json_decode($body, true)), $response['data']);
     }
 
     /** @test */
