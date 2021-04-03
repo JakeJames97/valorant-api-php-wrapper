@@ -48,8 +48,10 @@ class StatusTest extends TestCase
 
         $response = $status->getPlatformData();
 
+        $data = new StatusDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
-        $this->assertEquals(new StatusDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */

@@ -25,7 +25,9 @@ class Content
             return $data;
         }
 
-        $data['data'] = new ContentDTO($data['data']);
+        $dto = new ContentDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }

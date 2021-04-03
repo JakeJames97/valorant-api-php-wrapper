@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use JakeJames\ValorantApiPhpWrapper\API\Match;
+use JakeJames\ValorantApiPhpWrapper\API\MatchApi;
 use JakeJames\ValorantApiPhpWrapper\ClientWrapper;
 use JakeJames\ValorantApiPhpWrapper\DTO\MatchDTO;
 use JakeJames\ValorantApiPhpWrapper\DTO\MatchlistDTO;
@@ -36,13 +36,15 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getMatchById('test');
 
+        $data = new MatchDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
 
-        $this->assertEquals(new MatchDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */
@@ -58,7 +60,7 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getMatchById('test');
 
@@ -91,12 +93,14 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getMatchByPuuid('test');
 
+        $data = new MatchlistDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
-        $this->assertEquals(new MatchlistDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */
@@ -112,7 +116,7 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getMatchByPuuid('test');
 
@@ -139,13 +143,15 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getRecentMatches('competitive');
 
+        $data = new RecentMatchesDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
 
-        $this->assertEquals(new RecentMatchesDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */
@@ -161,7 +167,7 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getRecentMatches('incorrect queue');
 
@@ -182,7 +188,7 @@ class MatchTest extends TestCase
 
         $clientWrapper->setClient($client);
 
-        $match = new Match($clientWrapper);
+        $match = new MatchApi($clientWrapper);
 
         $response = $match->getRecentMatches('competitive');
 

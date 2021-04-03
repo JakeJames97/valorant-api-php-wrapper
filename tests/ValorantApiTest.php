@@ -4,7 +4,7 @@ namespace JakeJames\ValorantApiPhpWrapper\Tests;
 
 use JakeJames\ValorantApiPhpWrapper\API\Account;
 use JakeJames\ValorantApiPhpWrapper\API\Content;
-use JakeJames\ValorantApiPhpWrapper\API\Match;
+use JakeJames\ValorantApiPhpWrapper\API\MatchApi;
 use JakeJames\ValorantApiPhpWrapper\API\Ranked;
 use JakeJames\ValorantApiPhpWrapper\API\Status;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
@@ -37,7 +37,7 @@ class ValorantApiTest extends TestCase
     /** @test */
     public function callingMatchReturnsInstanceOfMatch(): void
     {
-        $this->assertInstanceOf(Match::class, $this->valorantApi->match());
+        $this->assertInstanceOf(MatchApi::class, $this->valorantApi->match());
     }
 
     /** @test */

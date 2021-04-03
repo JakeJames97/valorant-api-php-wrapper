@@ -52,8 +52,10 @@ class RankedTest extends TestCase
 
         $response = $ranked->getLeaderboardByAct('test');
 
+        $data = new LeaderboardDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
-        $this->assertEquals(new LeaderboardDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */

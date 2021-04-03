@@ -7,7 +7,7 @@ use JakeJames\ValorantApiPhpWrapper\DTO\MatchDTO;
 use JakeJames\ValorantApiPhpWrapper\DTO\MatchlistDTO;
 use JakeJames\ValorantApiPhpWrapper\DTO\RecentMatchesDTO;
 
-class Match
+class MatchApi
 {
     /**
      * @var ClientWrapper $client
@@ -27,7 +27,9 @@ class Match
             return $data;
         }
 
-        $data['data'] = new MatchDTO($data['data']);
+        $dto = new MatchDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }
@@ -40,7 +42,9 @@ class Match
             return $data;
         }
 
-        $data['data'] = new MatchlistDTO($data['data']);
+        $dto = new MatchlistDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }
@@ -60,7 +64,9 @@ class Match
             return $data;
         }
 
-        $data['data'] = new RecentMatchesDTO($data['data']);
+        $dto = new RecentMatchesDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }

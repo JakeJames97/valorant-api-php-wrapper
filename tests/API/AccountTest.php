@@ -41,10 +41,12 @@ class AccountTest extends TestCase
 
         $account = new Account($clientWrapper);
 
+        $data = new AccountDTO(json_decode($body, true));
+
         $response = $account->getAccountByPuuid('test');
 
         $this->assertEquals(200, $response['status']);
-        $this->assertEquals(new AccountDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */
@@ -92,8 +94,10 @@ class AccountTest extends TestCase
 
         $response = $account->getAccountByRiotId('test#6882');
 
+        $data = new AccountDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
-        $this->assertEquals(new AccountDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */
@@ -163,9 +167,11 @@ class AccountTest extends TestCase
 
         $response = $account->getShard('test');
 
+        $data = new ActiveShardDTO(json_decode($body, true));
+
         $this->assertEquals(200, $response['status']);
 
-        $this->assertEquals(new ActiveShardDTO(json_decode($body, true)), $response['data']);
+        $this->assertEquals($data->toArray(), $response['data']);
     }
 
     /** @test */

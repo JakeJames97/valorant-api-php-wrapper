@@ -5,7 +5,7 @@ namespace JakeJames\ValorantApiPhpWrapper;
 use GuzzleHttp\Client;
 use JakeJames\ValorantApiPhpWrapper\API\Account;
 use JakeJames\ValorantApiPhpWrapper\API\Content;
-use JakeJames\ValorantApiPhpWrapper\API\Match;
+use JakeJames\ValorantApiPhpWrapper\API\MatchApi;
 use JakeJames\ValorantApiPhpWrapper\API\Ranked;
 use JakeJames\ValorantApiPhpWrapper\API\Status;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
@@ -33,9 +33,9 @@ class ValorantApi
         return new Ranked($this->client);
     }
 
-    public function match(): Match
+    public function match(): MatchApi
     {
-        return new Match($this->client);
+        return new MatchApi($this->client);
     }
 
     public function status(): Status

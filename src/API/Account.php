@@ -26,7 +26,9 @@ class Account
             return $data;
         }
 
-        $data['data'] = new AccountDTO($data['data']);
+        $dto = new AccountDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }
@@ -52,7 +54,9 @@ class Account
             return $data;
         }
 
-        $data['data'] = new AccountDTO($data['data']);
+        $dto= new AccountDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }
@@ -65,7 +69,9 @@ class Account
             return $data;
         }
 
-        $data['data'] = new ActiveShardDTO($data['data']);
+        $dto = new ActiveShardDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }

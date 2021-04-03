@@ -25,7 +25,9 @@ class Ranked
             return $data;
         }
 
-        $data['data'] = new LeaderboardDTO($data['data']);
+        $dto = new LeaderboardDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }

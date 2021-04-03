@@ -25,7 +25,9 @@ class Status
             return $data;
         }
 
-        $data['data'] = new StatusDTO($data['data']);
+        $dto = new StatusDTO($data['data']);
+
+        $data['data'] = $dto->toArray();
 
         return $data;
     }
