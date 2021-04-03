@@ -8,6 +8,7 @@ use JakeJames\ValorantApiPhpWrapper\API\Content;
 use JakeJames\ValorantApiPhpWrapper\API\MatchApi;
 use JakeJames\ValorantApiPhpWrapper\API\Ranked;
 use JakeJames\ValorantApiPhpWrapper\API\Status;
+use JakeJames\ValorantApiPhpWrapper\Enum\RiotRegion;
 use JakeJames\ValorantApiPhpWrapper\Enum\ValorantRegion;
 
 class ValorantApi
@@ -17,9 +18,14 @@ class ValorantApi
      */
     protected $client;
 
-    public function __construct(string $apiKey, ValorantRegion $valorantRegion)
+    /**
+     * ValorantApi constructor.
+     * @param string $apiKey
+     * @param ValorantRegion|RiotRegion $region
+     */
+    public function __construct(string $apiKey, $region)
     {
-        $region = $valorantRegion->getValue();
+        $region = $region->getValue();
         $this->client = new ClientWrapper($apiKey, $region);
     }
 
