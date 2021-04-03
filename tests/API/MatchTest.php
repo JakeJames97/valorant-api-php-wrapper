@@ -24,7 +24,7 @@ class MatchTest extends TestCase
     /** @test */
     public function getMatchByIdReturnsResponseAsExpectedWithSuccessRequest(): void
     {
-        $body = file_get_contents('Tests/Json/MatchResponse.json');
+        $body = file_get_contents('./Tests/Json/MatchResponse.json');
 
         $mock = new MockHandler([
             new Response(200, ['X-Riot-Token' => 'testing'], $body),
