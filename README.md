@@ -1,11 +1,11 @@
-# Very short description of the package
+# Valorant API Wrapper
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jakejames/valorant-api-php-wrapper.svg?style=flat-square)](https://packagist.org/packages/jakejames/valorant-api-php-wrapper)
-[![Build Status](https://img.shields.io/travis/jakejames/valorant-api-php-wrapper/master.svg?style=flat-square)](https://travis-ci.org/jakejames/valorant-api-php-wrapper)
-[![Quality Score](https://img.shields.io/scrutinizer/g/jakejames/valorant-api-php-wrapper.svg?style=flat-square)](https://scrutinizer-ci.com/g/jakejames/valorant-api-php-wrapper)
+[![Build Status](https://travis-ci.com/JakeJames97/valorant-api-php-wrapper.svg?token=RZLqTCZSeqTmbxpWj5Dg&branch=master)](https://travis-ci.com/JakeJames97/valorant-api-php-wrapper)
 [![Total Downloads](https://img.shields.io/packagist/dt/jakejames/valorant-api-php-wrapper.svg?style=flat-square)](https://packagist.org/packages/jakejames/valorant-api-php-wrapper)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This is a simple package for the recently released Valorant Api, it's a php wrapper that makes calling the api much easier.
+The package follows psr-12 standards and has complete test coverage.
 
 ## Installation
 
@@ -15,10 +15,55 @@ You can install the package via composer:
 composer require jakejames/valorant-api-php-wrapper
 ```
 
-## Usage
+## Note:
+I don't currently have access to the match api endpoints due to it not being available in my policy
 
+## Usage
+Instantiate the Valorant API class with your api token and your region.
+If you want to call the account endpoints for your riot account details then you need to use the riot region enum rather than the valorant enum.
+
+##### For Valorant Calls:
 ``` php
-// Usage description here
+new ValorantApi('Your riot API Token', ValorantRegion::EUROPE());
+```
+
+##### For Riot Calls:
+``` php
+new ValorantApi('Your riot API Token', RiotRegion::EUROPE());
+```
+
+##### Example:
+``` php
+$api = new ValorantApi('Your riot API Token', ValorantRegion::EUROPE());
+
+$api->content()->getContent();
+$api->ranked()->getLeaderboardByAct('actId');
+$api->match()->getRecentMatches('unrated');
+$api->status()->getPlatformData();
+$api->account()->getAccountByPuuid('Your Puuid');
+```
+The Valorant api has 5 classes available, each one has methods related to that class
+- Match
+- Content
+- Ranked
+- Status
+- Account
+
+##### Response Formatting
+Responses are returned inside a data array which contains the response from riot.
+##### Success
+``` json
+array:2 [▼
+  "data" => array:15 [▶]
+  "status" => 200
+]
+```
+##### Error
+``` json
+array:2 [▼
+  "error" => "An unexpected error occurred, please try again"
+  "status" => "403"
+]
 ```
 
 ### Testing
