@@ -58,14 +58,14 @@ The Valorant api has 5 classes available, each one has methods related to that c
 ##### Response Formatting
 Responses are returned inside a data array which contains the response from riot.
 ##### Success
-``` json
+``` php
 array:2 [
-  "data": ['test']
-  "status": 200
+  "data" => ['test']
+  "status" => 200
 ]
 ```
 ##### Error
-``` json
+``` php
 array:2 [
   "error" => "An unexpected error occurred, please try again"
   "status" => "403"
