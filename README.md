@@ -27,11 +27,6 @@ If you want to call the account endpoints for your riot account details then you
 new ValorantApi('Your riot API Token', ValorantRegion::EUROPE());
 ```
 
-##### For Riot Calls:
-``` php
-new ValorantApi('Your riot API Token', RiotRegion::EUROPE());
-```
-
 ##### Example:
 ``` php
 $api = new ValorantApi('Your riot API Token', ValorantRegion::EUROPE());
@@ -40,6 +35,17 @@ $api->content()->getContent();
 $api->ranked()->getLeaderboardByAct('actId');
 $api->match()->getRecentMatches('unrated');
 $api->status()->getPlatformData();
+```
+
+##### For Riot Calls:
+``` php
+new ValorantApi('Your riot API Token', RiotRegion::EUROPE());
+```
+
+##### Example:
+``` php
+$api = new ValorantApi('Your riot API Token', RiotRegion::EUROPE());
+
 $api->account()->getAccountByPuuid('Your Puuid');
 ```
 The Valorant api has 5 classes available, each one has methods related to that class
@@ -53,14 +59,14 @@ The Valorant api has 5 classes available, each one has methods related to that c
 Responses are returned inside a data array which contains the response from riot.
 ##### Success
 ``` json
-array:2 [▼
-  "data" => array:15 [▶]
-  "status" => 200
+array:2 [
+  "data": ['test']
+  "status": 200
 ]
 ```
 ##### Error
 ``` json
-array:2 [▼
+array:2 [
   "error" => "An unexpected error occurred, please try again"
   "status" => "403"
 ]
